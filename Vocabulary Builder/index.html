@@ -1,0 +1,113 @@
+<!doctype html>
+<html ng-app= "VocabularyApp">
+  <head>
+    <title>Vocabulary Builder</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <style>
+    .toggle{
+      -webkit-transition: linear 0.2s;
+    }
+    .toggle.ng-enter{
+      opacity:0;
+    }
+    .toggle.ng-enter-active{
+      opacity: 1;
+    }
+    .toggle.ng-leave{
+      opacity: 1;
+    }
+    .toggle.ng-leave-active{
+      opacity: 0;
+    }
+  	</style>
+
+  </head>
+ <body>
+   <div ng-controller="vocabulary as vocab">
+
+      <div>
+      <form class="form-inline " name="vocabSearch">
+          <div class="form-group">
+            <input type="text"  class="form-control" placeholder="search" ng-model=""/>
+              <button type="submit" class=" btn btn-default">Search</button>          
+          </div>
+      </form>
+      </div>
+      <br>
+      <div ng-controller = "AppCtrl as appToggle">
+      <button class="btn" ng-click="appToggle.toggle=!appToggle.toggle">Add A New Word</button>
+      <div class="toggle" ng-if="appToggle.toggle">
+      <form class="form-inline">
+        <div class="form-group">
+          <label class="sr-only" for="word">Word</label>
+          <input type="text" class="form-control" id="word" ng-model="vocab.newWord" placeholder="Word">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="meaning">Meaning</label>
+          <textarea class="form-control" id="meaning" ng-model="vocab.newMeaning" placeholder="Meaning"></textarea> 
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="sentence">Sentence</label>
+          <textarea class="form-control" id="sentence" ng-model="vocab.newSentence" placeholder="Related Sentence"></textarea> 
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Mark as Important
+          </label>
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="vocab.addWord()">Add</button>
+      </form>
+      </div>
+      </div>
+      <br>
+
+      <form class="form-inline">
+        <div class="form-group">
+          <label class="sr-only" for="word">Word</label>
+          <input type="text" class="form-control" id="word" ng-model= "vocab.wordCopy.word" placeholder="Word">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="meaning">Meaning</label>
+          <textarea class="form-control" id="meaning" ng-model= "vocab.wordCopy.meaning" placeholder="Meaning"></textarea> 
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="sentence">Sentence</label>
+          <textarea class="form-control" id="sentence" ng-model= "vocab.wordCopy.sentence" placeholder="Related Sentence"></textarea> 
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Mark as Important
+          </label>
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="vocab.saveWord()">Save</button>
+      </form>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td>Word</td>
+            <td>Meaning</td>
+            <td>Sentence</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="word in vocab.vocabs" ng-click="vocab.selectWord(word)">
+            <td>
+              {{word.word}}
+            </td>
+            <td>
+              {{word.meaning}}
+            </td>
+            <td>
+              {{word.sentence}}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+   </div>
+</body>
+</html>
+
